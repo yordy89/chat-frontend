@@ -38,6 +38,7 @@
 
 
 <script>
+import {mapstate, mapState} from 'vuex'
 import io from 'socket.io-client'
 
 export default {
@@ -56,6 +57,9 @@ export default {
      mensaje(value){
        value ? this.socket.emit('typing',this.username) : this.socket.emit('stopTyping')
      }
+   },
+   computed:{
+     ...mapState(['user'])
    },
    methods:{
    joinServe(){
@@ -96,7 +100,7 @@ export default {
 
   },
    mounted(){
-    this.username = prompt("Cual es su usuario")
+     this.username = this.user
     if(!this.username) this.username = "Anonimo"
     this.joinServe()
   }
